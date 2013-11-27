@@ -1,8 +1,14 @@
+#!/usr/bin/python
+
 import sys, getopt
 import Image
 
 chars = " .-*O#"[::-1]
-im = Image.open('c:\\Users\\anon\\Downloads\\IMAG0801-1-1.jpg')
+
+im = Image.open(sys.argv[1])
+w, h = int(sys.argv[2]), int(sys.argv[3])
+
+#print sys.argv[1], im.size
 
 def get_pixel(img, coords):
    return img.convert('RGB').getpixel(coords)
@@ -22,9 +28,6 @@ def run(char_x, char_y):
       #print
 
    return ar
-
-
-#!/usr/bin/python
 
 def minmax(mtrx):
    minim = 999999999
@@ -56,4 +59,4 @@ def build (matrix):
 
 
 #print run(4,2)
-print build(run(10,20))
+print build(run(w,h))

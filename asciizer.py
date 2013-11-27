@@ -3,7 +3,10 @@
 import sys, getopt
 import Image
 
-chars = " .-*O#"[::-1]
+chars = ''
+
+with open('asciizer.chars', 'r') as f: 
+  chars = f.readlines()[0][::-1]
 
 im = Image.open(sys.argv[1])
 w, h = int(sys.argv[2]), int(sys.argv[3])

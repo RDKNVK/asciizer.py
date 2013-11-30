@@ -3,15 +3,19 @@
 import sys, getopt
 import Image
 
+if len(sys.argv) != 4:
+  print '\nUsage: \n\n asciilizer.py path/to/file char_width char_height'
+  exit()
+
+im = Image.open(sys.argv[1])
+w, h = int(sys.argv[2]), int(sys.argv[3])
+
 chars = ''
 
 with open('asciizer.chars', 'r') as f: 
   chars = f.readlines()[0][::-1]
 
-im = Image.open(sys.argv[1])
-w, h = int(sys.argv[2]), int(sys.argv[3])
-
-#print sys.argv[1], im.size
+#chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
 def get_pixel(img, coords):
    return img.convert('RGB').getpixel(coords)
@@ -26,10 +30,6 @@ def run(char_x, char_y):
       for i in range(im.size[0]):
 
          ar[j / char_y][i / char_x] += sum(get_pixel(im, (i,j)))
-
-         #print j, i, ':',j / char_y, i / char_x, '|',
-      #print
-
    return ar
 
 def minmax(mtrx):
@@ -47,9 +47,6 @@ def build (matrix):
     mx = minmax(matrix)[1]
     span = mx - mn
     piece_size = span / len(chars)
-
-    #print mn, mx, span, piece_size, len(chars)
-
     ret = ""
     for j in matrix:
         for i in j:
@@ -59,7 +56,6 @@ def build (matrix):
 
         ret += "\n"
     return ret
-
 
 #print run(4,2)
 print build(run(w,h))
